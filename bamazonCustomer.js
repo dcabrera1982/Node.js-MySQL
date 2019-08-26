@@ -21,18 +21,18 @@ connection.connect(function(err) {
     console.log("Connected as id: "+connection.threadId);
     if (err) throw err;
     // Run the start function after the connection is made to prompt the user
-    // start();
-    connection.end();
+    start();
+    
 });
 
 // Display purchase amount
-// var totalPurchase = (id, quantity) => {
-//     connection.query("SELECT price FROM products WHERE item_id=?", function(err, result) {
-//         if (err) throw err;
-//         var price = result[0].price;
-//         var purchaseTotal = price*quantity;
-//         console.log("Thank you, come again.");
-//         console.log("Your total for this transaction was $" + purchaseTotal);
-//         connection.end();
-//     })
-// }
+function start() {
+    inquirer
+        .prompt({
+            name: "item_id",
+            type: "list",
+            message: "Please select which item you would like to purchase by item_id",
+            choices: [1, 2, 3]
+        })
+        connection.end();
+    }
