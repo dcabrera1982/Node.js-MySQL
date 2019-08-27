@@ -48,4 +48,22 @@ var display = function () {
         console.log("");
     });
 };
+
+var productChoice + function() {
+    inquirer.prompt({
+        name: "productToBuy",
+        type: "input",
+        message: "Please enter the Product Id of the item you wish to purchase."
+    }).then(function(answer1){
+
+        var choice = answer1.productToBuy;
+        connection.query("SELECT * FROM products WHERE Id=?", choice, function(err, res){
+            if (err) throw err;
+            if (res.length === 0){
+                console.log("Product selected does not exist, please choose from list above.")
+            };
+        })
+    })
+}
+
 display();
