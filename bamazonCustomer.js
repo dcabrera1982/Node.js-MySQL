@@ -40,4 +40,7 @@ var display = function () {
             compact: true
         }
     });
+    for (var = i; i < res.length; i++){
+        table.push([res[i].id, res[i].product_name, res[i].price]);
+    }
 };
