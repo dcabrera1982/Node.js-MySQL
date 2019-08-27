@@ -5,23 +5,23 @@ var inquirer = require("inquirer");
 var connection = mysql.createConnection({
     host: "localhost",
 
-// Port
-port: 3306,
+    // Port
+    port: 3306,
 
-// Username
-user: "root",
+    // Username
+    user: "root",
 
-// Password 
-password: "IlmkJD&L4life",
-database: "bamazon_db"
+    // Password 
+    password: "IlmkJD&L4life",
+    database: "bamazon_db"
 })
 
 // Connect to the mysql server and sql database
 connection.connect();
 
-var display = function() {
+var display = function () {
 
-connection.query("SELECT * FROM products", function(err, res) {
+    connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
         console.log("--------------------------");
         console.log("Thank you for visiting Bamazon.");
@@ -30,5 +30,14 @@ connection.query("SELECT * FROM products", function(err, res) {
         console.log("Choose a product from the list below");
         console.log("");
         connection.end();
+    });
+    var table = new Table({
+        head: ["Product Id", "Description", "Cost"],
+        colWidths: [12, 50, 8],
+        colAligns: ["Center", "Left", "Right"],
+        style: {
+            head: ["Blue"],
+            compact: true
+        }
     });
 };
