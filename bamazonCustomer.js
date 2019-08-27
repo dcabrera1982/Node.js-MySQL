@@ -17,22 +17,15 @@ database: "bamazon_db"
 })
 
 // Connect to the mysql server and sql database
-connection.connect(function(err) {
-    console.log("Connected as id: "+connection.threadId);
-    if (err) throw err;
-    // Run the start function after the connection is made to prompt the user
-    start();
-    
-});
+connection.connect();
 
-// Display purchase amount
-function start() {
-    inquirer
-        .prompt({
-            name: "item_id",
-            type: "list",
-            message: "Please select which item you would like to purchase by item_id",
-            choices: [1, 2, 3]
-        })
+var display = function() {
+
+connection.query("SELECT * FROM products", function(err, res) {
+        if (err) throw err;
+        console.log();
+        console.log("Thank you, come again.");
+        console.log("Your total for this transaction was $" + purchaseTotal);
         connection.end();
-    }
+    })
+}
