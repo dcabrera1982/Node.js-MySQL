@@ -23,9 +23,12 @@ var display = function() {
 
 connection.query("SELECT * FROM products", function(err, res) {
         if (err) throw err;
-        console.log();
-        console.log("Thank you, come again.");
-        console.log("Your total for this transaction was $" + purchaseTotal);
+        console.log("--------------------------");
+        console.log("Thank you for visiting Bamazon.");
+        console.log("--------------------------");
+        console.log("");
+        console.log("Choose a product from the list below");
+        console.log("");
         connection.end();
-    })
-}
+    });
+};
