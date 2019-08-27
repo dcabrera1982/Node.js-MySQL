@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var Table = require('cli-table2');
 
 // Create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -27,20 +28,24 @@ var display = function () {
         console.log("Thank you for visiting Bamazon.");
         console.log("--------------------------");
         console.log("");
-        console.log("Choose a product from the list below");
+        console.log("Choose your Crossfit gear from the list below");
         console.log("");
         connection.end();
-    });
-    var table = new Table({
-        head: ["Product Id", "Description", "Cost"],
-        colWidths: [12, 50, 8],
-        colAligns: ["Center", "Left", "Right"],
-        style: {
-            head: ["Blue"],
-            compact: true
+
+        var table = new Table({
+            head: ["Product Id", "Description", "Cost"],
+            colWidths: [12, 50, 8],
+            colAligns: ["center", "left", "right"],
+            style: {
+                head: ["aqua"],
+                compact: true
+            }
+        });
+        for (var i = 0; i < res.length; i++) {
+            table.push([res[i].id, res[i].product_name, res[i].price]);
         }
+        console.log(table.toString());
+        console.log("");
     });
-    for (var = i; i < res.length; i++){
-        table.push([res[i].id, res[i].product_name, res[i].price]);
-    }
 };
+display();
