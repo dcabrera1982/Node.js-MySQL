@@ -49,21 +49,53 @@ var display = function () {
     });
 };
 
-var productChoice + function() {
+var shopping = function() {
     inquirer.prompt({
         name: "productToBuy",
         type: "input",
-        message: "Please enter the Product Id of the item you wish to purchase."
+        message: "Please enter the Product Id of the item you wish to purchase.!"
     }).then(function(answer1){
 
-        var choice = answer1.productToBuy;
-        connection.query("SELECT * FROM products WHERE Id=?", choice, function(err, res){
+        var selection = answer1.productToBuy;
+        connection.query("SELECT * FROM products WHERE Id=?", selection, function(err, res){
             if (err) throw err;
             if (res.length === 0){
-                console.log("Product selected does not exist, please choose from list above.")
-            };
-        })
-    })
-}
+                console.log("Product selected does not exist, please choose from list above.");
+                shopping();
+            }else{
+                inquirer.prompt({
+                    name: "quantity",
+                    type: "input",
+                    message: "How many would you like to purchase?"
+                }).then(function(answer2){
+                    var quantity = answer2.quantity;
+                    if (quantity > res[0].stock_quantity) {
+                        console.log("We apologize, we only have " + res[0].stock_quantity + " left in stock of selected item.")
+                    shopping();
+                    }else{
+                        console.log("");
+                        console.log(res[0].product_name + " purchased");
+                        console.log(quantity + " qty @ $" + res[0].price);
+                        
+
+                        var newQuantity = res[0].stock_quantity - quantity;
+                        connection.query(
+                            "UPDATE products SET stock_quantity = " + newQuantity + " WHERE id = " + res[0].id, function(err, resUpdate) {
+                                if (err) throw err;
+                                console.log("");
+                                console.log("Your order has been processed.");
+                                console.log("Thank you for shopping at Bamazon.");
+                                console.log("");
+                                connection.end();
+
+                            }
+                        );
+                    }
+                });
+            }
+            
+        });
+    });
+};
 
 display();
