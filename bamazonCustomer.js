@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
     user: "root",
 
     // Password 
-    password: "IlmkJD&L4life",
+    password: "root",
     database: "bamazon_db"
 })
 
@@ -30,7 +30,7 @@ var display = function () {
         console.log("");
         console.log("Choose your Crossfit gear from the list below");
         console.log("");
-        connection.end();
+        
 
         var table = new Table({
             head: ["Product Id", "Description", "Cost"],
@@ -46,6 +46,7 @@ var display = function () {
         }
         console.log(table.toString());
         console.log("");
+        shopping();
     });
 };
 
